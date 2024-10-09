@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+    <title>نمودار پویا</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/fontawesome.css' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js" integrity="sha512-L0Shl7nXXzIlBSUUPpxrokqq4ojqgZFQczTYlGjzONGTDAcLremjwaWv5A+EDLnxhQzY5xUZPWLOLqYRkY0Cbw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        @font-face {
+            font-family: 'IranSans';
+            src: local('IranSans'),
+            url({% static 'fonts/IRANSansWeb.eot' %}) format('eot'),
+            url({% static 'fonts/IRANSansWeb.ttf' %}) format('ttf'),
+            url({% static 'fonts/IRANSansWeb.woff' %}) format('woff'),
+            url({% static 'fonts/IRANSansWeb.woff2' %}) format('woff2');
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 style="text-align: center;">{% block titlepage %} {% endblock %}</h1>
+    <div class="row">
+        {% block mainContent %}{% endblock %}
+    </div>
+</div>
+<script src="{% static 'js/jquery-3.7.1.min.map' %}"></script>
+<script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+<script src="{% static 'js/fontawesome.js' %}"></script>
+</body>
+</html>

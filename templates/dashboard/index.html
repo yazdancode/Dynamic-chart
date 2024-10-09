@@ -1,0 +1,56 @@
+{% extends "dashboard/base.html" %}
+{% block titlepage %}نمودار پویا{% endblock %}
+
+{% block mainContent %}
+<div class="container" style="max-width: 80%; margin-top: 30px;">
+    <div class="row justify-content-center">
+        <div class="col-md-6" style="text-align: center; border: 1px solid black; padding: 10px;">
+            <form action="{% url 'index' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="id_lesson">نام درس</label>
+                    {{ form.lesson }}
+                </div>
+                <button type="submit" class="btn btn-success" style="width: 200px;">ثبت</button>
+                
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+
+    <div class="row justify-content-center" style="margin-top: 20px;">
+        <div class="col-md-6" style="text-align: center; border: 1px solid black; padding: 10px;">
+            <canvas id="myChart"></canvas>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+                const ctx = document.getElementById('myChart');
+
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: [{% for lesson in lessons %}'{{ lesson.name }}'{% if not forloop.last %}, {% endif %}{% endfor %}],
+                        datasets: [{
+                            label: 'میانگین نمرات',
+                            data: [{{ average_scores.values|join:", " }}],  // Ensure this is formatted correctly
+                            borderWidth: 1,
+                            backgroundColor: 'rgba(75, 192, 192, 0.8)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            </script>
+        </div>
+    </div>
+</div>
+{% endblock %}
